@@ -24,20 +24,16 @@ for (let i = 0; i < buttons.length; i++) {
 
     document.addEventListener('keydown', event => {
 
-        if (event.repeat) {
+        if (event.shiftKey) {
+            set.classList.remove('middle', 'higher');
+            set.classList.add('lower');
+            arr = changeFolder('lower');
+        }
 
-            if (event.shiftKey) {
-                set.classList.remove('middle', 'higher');
-                set.classList.add('lower');
-                arr = changeFolder('lower');
-            }
-
-            if (event.altKey) {
-                set.classList.remove('middle', 'lower');
-                set.classList.add('higher');
-                arr = changeFolder('higher');
-            }
-
+        if (event.altKey) {
+            set.classList.remove('middle', 'lower');
+            set.classList.add('higher');
+            arr = changeFolder('higher');
         }
 
     })
