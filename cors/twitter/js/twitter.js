@@ -1,14 +1,10 @@
 'use strict';
 
-const container = document.getElementsByClassName('container')[0];
+const container = document.getElementsByClassName('container')[0],
+  script = document.createElement('script');
+script.src = "https://neto-api.herokuapp.com/twitter/jsonp?jsonp=addElements";
+document.body.appendChild(script);
 
-loadData();
-
-function loadData() {
-  const script = document.scripts[0].cloneNode();
-  script.src = "https://neto-api.herokuapp.com/twitter/jsonp?jsonp=addElements";
-  document.body.appendChild(script);
-}
 
 window.addElements = function(obj) {
   for (let key in obj) {

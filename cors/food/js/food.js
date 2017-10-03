@@ -9,8 +9,13 @@ const wrapper = document.getElementsByClassName('wrapper')[0],
   star = wrapper.querySelector('[data-star]'),
   consumers = wrapper.querySelector('[data-consumers]');
 
+loadData('https://neto-api.herokuapp.com/food/42', 'addElements');
+loadData('https://neto-api.herokuapp.com/food/42/rating', 'addRating');
+loadData('https://neto-api.herokuapp.com/food/42/consumers', 'addConsumers');
+
+
 function loadData(url, functionName) {
-  const script = document.scripts[0].cloneNode();
+  const script = document.createElement('script');
   script.src = `${url}?jsonp=${functionName}`;
   document.body.appendChild(script);
 }
@@ -33,8 +38,3 @@ window.addConsumers = function(obj) {
       `<img src=${item.pic} title=${item.name}>`
   }, '') + `<span>(+${obj.total})</span>`;
 }
-
-loadData('https://neto-api.herokuapp.com/food/42', 'addElements');
-loadData('https://neto-api.herokuapp.com/food/42/rating', 'addRating');
-loadData('https://neto-api.herokuapp.com/food/42/consumers', 'addConsumers');
-
