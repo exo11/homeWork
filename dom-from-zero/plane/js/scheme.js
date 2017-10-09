@@ -73,8 +73,7 @@ function createScheme(obj) {
 
 function addCols(arr, cls) {
   let fragment = document.createDocumentFragment(),
-    z = 0,
-    x = 0;
+    z = 0, x = 0;
   for (let i = 0; i < 2; i++) {
     let col = el('div', 'col-xs-5', '');
     for (let a = 0; a < 3; a++) {
