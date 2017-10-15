@@ -8,7 +8,7 @@ let action = 'up',
   nextwidth = 100,
   nextpoint,
   pointer,
-  px = -1;
+  px;
 
 canvas.setAttribute('width', window.screen.width);
 canvas.setAttribute('height', window.screen.height);
@@ -39,19 +39,7 @@ function mouseUp(event) {
 function mouseMove(event) {
   if (action == 'down' && event.which === 1) {
     nextpoint = pointer + 1;
-    if (nextpoint > 19) {
-      nextpoint = 0;
-      /*Привязал интервал изменения цвета и толщины линии к моменту перезаписи массива,
-    потому как не до конца понял ,что означает 'тик' в данном тз)*/
-      changeWidth();
-      if (event.shiftKey) {
-        nextcolor--;
-        nextcolor = nextcolor < 1 ? 361 : nextcolor;
-      } else {
-        nextcolor++;
-        nextcolor = nextcolor > 359 ? 0 : nextcolor;
-      }
-    }
+    
     ctx.strokeStyle = `hsl(${nextcolor}, 100%, 50%)`;
     ctx.beginPath();
     ctx.lineJoin = ctx.lineCap = 'round';
@@ -60,13 +48,23 @@ function mouseMove(event) {
     ctx.stroke();
     pointer = nextpoint;
     points[pointer] = [event.pageX, event.pageY];
+
+    if (nextpoint > 19) { nextpoint = 0 }
+    changeWidth();
+    if (event.shiftKey) {
+      nextcolor = nextcolor < 1 ? 361 : nextcolor;
+      nextcolor--;
+    } else {
+      nextcolor = nextcolor > 359 ? -1 : nextcolor;
+      nextcolor++;
+    }
   }
 };
 
 function changeWidth() {
-  nextwidth += px;
   ctx.lineWidth = nextwidth;
   px = nextwidth === 5 ? 1 : nextwidth === 100 ? -1 : px;
+  nextwidth += px;
 }
 
 function windowResize() {

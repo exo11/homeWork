@@ -5,8 +5,8 @@ const canvas = document.getElementById('wall'),
   ctx = canvas.getContext('2d'),
   arrObj = createArrObj();
 
-canvas.setAttribute('width', window.screen.width);
-canvas.setAttribute('height', window.screen.height);
+canvas.setAttribute('width', window.getComputedStyle(canvas, null).getPropertyValue("width")); 
+canvas.setAttribute('height', window.getComputedStyle(canvas, null).getPropertyValue("height"));
 
 function createArrObj() {
   let arr = [],
