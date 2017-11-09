@@ -3,27 +3,43 @@
 function AuthForm({onAuth}) {
  let form;
   
+  
+  function fieldValidation(event) {
+    let reg = event.currentTarget.type === 'email' ? 
+      /[^A-z 0-9 @ . _ -]/ :  /[^A-z 0-9 _]/;
+    event.currentTarget.value = event.currentTarget.value.replace(reg, '')
+  }
+
+  
   function formHandler(event) {
     event.preventDefault();
-    const nameField = form.querySelector('input[type="text"]'),
-      emailField = form.querySelector('input[type="email"]'),
-      passwordField = form.querySelector('input[type="password"]'),
-      user = {name: nameField.value, email: emailField.value, password: passwordField.value};
-    typeof onAuth === 'function' && onAuth(user);
+    if (typeof onAuth !== 'function') {
+      throw new Error('onAuth is not a function !');
+      return;
+    }
+    const nameField = form['name'].value,
+      emailField = form['email'].value,
+      passwordField = form['password'].value,
+      user = {
+        name: nameField, 
+        email: emailField, 
+        password: passwordField
+      };
+    onAuth(user);
   }
 
   return (
     <form className="ModalForm" action="/404/auth/" method="POST"  onSubmit={formHandler} ref={el => form = el}>
       <div className="Input">
-        <input required type="text" placeholder="Имя"/>
+        <input required type="text" placeholder="Имя" name='name'/>
         <label></label>
   	  </div>
       <div className="Input">
-        <input type="email" placeholder="Электронная почта" onChange={event => {event.currentTarget.value = event.currentTarget.value.replace(/[^'A-z','0-9','@','.','_','-']/, '')}} />
+        <input required type="email" placeholder="Электронная почта" name='email' onChange={fieldValidation}/>
         <label></label>
       </div>
       <div className="Input">
-        <input required type="password" placeholder="Пароль" onChange={event => {event.currentTarget.value = event.currentTarget.value.replace(/[^'A-z','0-9','_']/, '')}} />
+        <input required type="password" placeholder="Пароль" name='password' onChange={fieldValidation}/>
         <label></label>
       </div>
       <button type="submit">
