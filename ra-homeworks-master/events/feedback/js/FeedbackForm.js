@@ -3,24 +3,25 @@
 function FeedbackForm(props) {
   let {salutation, name, subject, message, email, snacks} = props.data,
     form;
-  
-  
+
+ 
   function submitHandler(event) {
     event.preventDefault();
     if (typeof props.onSubmit !== 'function') {
       throw new Error('props.onSubmit is not a function !');
       return;
     }
-    const fieldValues = JSON.stringify({
-      salutation: Array.from(form['salutation'])
-        .filter(input => input.checked)[0].value,
-      name: form['name'].value,
-      email: form['email'].value,
-      subject: form['subject'].value,
-      message: form['message'].value,
-      snacks: Array.from(form['snacks'])
-        .filter(input => input.checked)[0].value
-    });
+    const snacksValueArr = Array.from(form['snacks'])
+      .filter(input => input.checked)
+        .map(input => input.value),
+      fieldValues = JSON.stringify({
+        salutation: form.salutation.value,
+        name: form['name'].value,
+        email: form['email'].value,
+        subject: form['subject'].value,
+        message: form['message'].value,
+        snacks: snacksValueArr
+      });
     props.onSubmit(fieldValues);
   }
 
