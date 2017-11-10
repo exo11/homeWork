@@ -32,7 +32,11 @@ function FeedbackForm(props) {
 
   
   function isCheckedSnacks(value) {
-    return snacks[0] === value;
+    for(let snack of snacks){
+      if (snack === value){
+        return true;
+      }
+    }
   }
 
   
