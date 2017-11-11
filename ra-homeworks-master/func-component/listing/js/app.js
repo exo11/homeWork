@@ -9,7 +9,7 @@ function Listing({items}) {
     <div className="item" key={item.listing_id}>
       <div className="item-image">
         <a href={item.url}>
-          <img src={item.MainImage.url_570xN} />
+          <img src={item.MainImage.url_570xN}/>
         </a>
       </div>
       <div className="item-details">
