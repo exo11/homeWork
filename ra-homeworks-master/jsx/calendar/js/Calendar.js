@@ -1,4 +1,17 @@
-const arrMonth = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],
+const arrMonth = [
+  'января',
+  'февраля',
+  'марта',
+  'апреля',
+  'мая',
+  'июня',
+  'июля',
+  'августа',
+  'сентября',
+  'октября',
+  'ноября',
+  'декабря'
+],
   oneDay = 86400000;
 
  
@@ -12,7 +25,8 @@ function Calendar({date}) {
     month = date.getMonth(),
     dateLM = getStartDateLM(),
     dateTM = new Date(year, month).getTime(),
-    weekDay = new Date(year, month).getDay();
+    weekDay = new Date(year, month).getDay(),
+    lastDayTM = new Date(year, month + 1, 0).getDay();
 
 
   function getStartDateLM() {
@@ -32,7 +46,7 @@ function Calendar({date}) {
   function addWeek() {
     let arrWeek = [],
       isForward = weekDay === 1 ? false : true,
-      length = ( weekDay > 0 && weekDay < 6 ) ? 5 : 6;
+      length = ( (weekDay > 0 && weekDay < 6) || (weekDay === 6 && lastDayTM === 0) ) ? 5 : 6;
     for (let i = 0; i < length; i++) {
       arrWeek.push(<tr>{addDay(isForward)}</tr>);
     }
