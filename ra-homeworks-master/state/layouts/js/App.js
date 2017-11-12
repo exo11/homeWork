@@ -4,15 +4,25 @@ const VIEW_LIST = "view_list";
 const VIEW_MODULE = "view_module";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     view: true 
+    };
+  }
+
+  view = () => this.state.view === true ? false : true;
+  
   render() {
     return (
       <div>
         <div className="toolbar">
           <IconSwitch
-            icon={VIEW_MODULE}
-            onSwitch={() => console.log("сменился тип вывода")} />
+            icon={this.view() === true ? VIEW_LIST : VIEW_MODULE}
+            onSwitch={() => {this.setState({view: this.view()})}} 
+          />
         </div>
-        {this.renderLayout(true)}
+        {this.renderLayout(this.view())}
       </div>
     );
   }
@@ -22,7 +32,8 @@ class App extends React.Component {
       return (
         <CardsView
           layout={this.props.layout}
-          cards={this.getShopItems(this.props.products, cardView)} />
+          cards={this.getShopItems(this.props.products, cardView)} 
+        />
       );
     }
     return (<ListView items={this.getShopItems(this.props.products, cardView)} />);
