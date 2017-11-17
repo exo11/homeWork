@@ -2,7 +2,8 @@
 
 fetch(`https://neto-api.herokuapp.com/etsy`)
   .then(res => res.json())
-  .then(arr => {ReactDOM.render(<Listing items={arr} />,document.getElementById('root'))});
+  .then(arr => {ReactDOM.render(<Listing items={arr} />,
+    document.getElementById('root'))});
 
 function Listing({items}) {
   const list = items.map(item => (
@@ -14,16 +15,12 @@ function Listing({items}) {
       </div>
       <div className="item-details">
         <p className="item-title">
-          {item.title.length > 50 ? (item.title.substr(0,50) + ' ...') : item.title}
+          {getTitleLength(item.title)}
         </p>
         <p className="item-price">
-          {item.currency_code === 'USD' ? ('$' + item.price) :
-            item.currency_code === 'EUR' ? ('€' + item.price) :
-              (item.price + ' ' + item.currency_code)}
+          {getCurrencuCode(item)}
         </p>
-        <p className={item.quantity <= 10 ? 'item-quantity level-low' : 
-          item.quantity <= 20 ? 'item-quantity level-medium' : 
-            'item-quantity level-high'}>
+        <p className={getQuantityLevel(item.quantity)}>
           {item.quantity} left
         </p>
       </div>
@@ -35,3 +32,29 @@ function Listing({items}) {
 
 Listing.defaultProps = { items: [] }
 
+
+function getTitleLength(title) {
+  return title.length > 50 ? (title.substr(0,50) + ' ...') : title;
+}
+
+
+function getCurrencuCode(item) {
+  if (item.currency_code === 'USD') {
+    return '$' + item.price;
+  }
+  if (item.currency_code === 'EUR') {
+    return '€' + item.price;
+  }
+  return item.price + ' ' + item.currency_code;
+}
+
+
+function getQuantityLevel(quantity) {
+  if (quantity <= 10) {
+    return 'item-quantity level-low';
+  }
+  if (quantity <= 20) {
+    return 'item-quantity level-medium';
+  }
+  return 'item-quantity level-high';
+}
