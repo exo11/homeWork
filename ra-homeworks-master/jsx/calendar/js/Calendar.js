@@ -46,48 +46,69 @@ function Calendar({date}) {
   function addWeek() {
     let arrWeek = [],
       isForward = weekDay === 1 ? false : true,
-      length = ( (weekDay > 0 && weekDay < 6) || (weekDay === 6 && lastDayTM === 0) ) ? 5 : 6;
+      length = ((weekDay > 0 && weekDay < 6) || 
+        (weekDay === 6 && lastDayTM === 0)) ? 5 : 6;
     for (let i = 0; i < length; i++) {
       arrWeek.push(<tr>{addDay(isForward)}</tr>);
     }
     return arrWeek;
   }
-
-
+  
+  
+  function getDayType(day, date) {
+    let type = '';
+    if (new Date(day).getMonth() !== date.getMonth()) {
+      type = 'ui-datepicker-other-month';
+    } else if (new Date(day).getDate() === date.getDate()) {
+      type = 'ui-datepicker-today';
+    }  
+    return type;
+  }
+  
+  
   function addDay(isForward) {
     let arrDay = [];  
     for (let i = 0; i < 7; i++) {
       let day = isForward === true ? dateLM : dateTM;
-      if (new Date(day).getMonth() !== date.getMonth()){
-        arrDay.push(<td className="ui-datepicker-other-month">{new Date(day).getDate()}</td>);
-      } else {
-        new Date(day).getDate() === date.getDate() ? 
-          arrDay.push(<td className="ui-datepicker-today">{new Date(day).getDate()}</td>) : 
-            arrDay.push(<td>{new Date(day).getDate()}</td>);
-      }
-      if(isForward){
+      arrDay.push(
+        <td key={i} className={getDayType(day, date)}>
+          {new Date(day).getDate()}
+        </td>
+      );  
+      if (isForward) {
         dateLM += oneDay;
-      }else{
+      } else {
         dateTM += oneDay;
-      } 
+      }
     }
     return arrDay;
   }
-
+  
   return (
       <div className="ui-datepicker">
         <div className="ui-datepicker-material-header">
-          <div className="ui-datepicker-material-day">{upperFirst(date.toLocaleString("ru", {weekday: 'long'}))}</div>
+          <div className="ui-datepicker-material-day">
+            {upperFirst(date.toLocaleString("ru", {weekday: 'long'}))}
+          </div>
           <div className="ui-datepicker-material-date">
-            <div className="ui-datepicker-material-day-num">{date.toLocaleString("ru", {day: 'numeric'})}</div>
-            <div className="ui-datepicker-material-month">{arrMonth[date.getMonth()]}</div>
-            <div className="ui-datepicker-material-year">{date.toLocaleString("ru", {year: 'numeric'})}</div>
+            <div className="ui-datepicker-material-day-num">
+              {date.toLocaleString("ru", {day: 'numeric'})}
+            </div>
+            <div className="ui-datepicker-material-month">
+              {arrMonth[date.getMonth()]}
+            </div>
+            <div className="ui-datepicker-material-year">
+              {date.toLocaleString("ru", {year: 'numeric'})}
+            </div>
           </div>
         </div>
         <div className="ui-datepicker-header">
           <div className="ui-datepicker-title">
-            <span className="ui-datepicker-month">{upperFirst(date.toLocaleString("ru", {month: 'long'}))}
-            </span>&nbsp;<span className="ui-datepicker-year">{date.toLocaleString("ru", {year: 'numeric'})}</span>
+            <span className="ui-datepicker-month">
+              {upperFirst(date.toLocaleString("ru", {month: 'long'}))}
+            </span>&nbsp;<span className="ui-datepicker-year">
+              {date.toLocaleString("ru", {year: 'numeric'})}
+            </span>
           </div>
         </div>
         <table className="ui-datepicker-calendar">
