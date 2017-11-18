@@ -2,15 +2,30 @@
 
 const App = ({items}) => (
   <main>
-    {items.map(item => {
-      switch(item.type) {
-        case 'unisex':
-          return <Item color="black" item={item} />;
-        case 'male':
-          return <Item color="blue" item={item} />;
-        case 'female':
-          return <Item color="orange" item={item} />;
-      }
-    })}
+    {items.map(item => <Item color={addColor(item)} item={item} />)}
   </main>
-);
+)
+
+function addColor(item) {
+  if (item.type === 'unisex') {
+    return 'black';
+  }
+  if (item.type === 'male') {
+    return 'blue';
+  }
+  return 'orange';
+}  
+
+
+{/*const App = ({items}) => (
+  <main>
+    {items.map(item => <ColorItem item={item} />)}
+  </main>
+)
+
+function ColorItem(props) {
+  const color = props.item.type === 'unisex' ? 'black' :
+    props.item.type === 'male' ? 'blue' : 'orange';
+  return <Item color={color} item={props.item} />
+}*/}
+
