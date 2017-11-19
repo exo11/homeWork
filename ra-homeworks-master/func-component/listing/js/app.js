@@ -39,13 +39,17 @@ function getTitleLength(title) {
 
 
 function getCurrencuCode(item) {
-  if (item.currency_code === 'USD') {
-    return '$' + item.price;
+  let sign = ' ';
+  switch(item.currency_code) {
+    case 'USD': 
+    sign = '$';
+    break;
+    case 'EUR':
+    sign = '€';
+    break;
   }
-  if (item.currency_code === 'EUR') {
-    return '€' + item.price;
-  }
-  return item.price + ' ' + item.currency_code;
+  return sign !== ' ' ? sign + item.price :
+    item.price + sign + item.currency_code;
 }
 
 
