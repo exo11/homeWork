@@ -12,12 +12,19 @@ const arrMonth = [
   'ноября',
   'декабря'
 ],
-  oneDay = 86400000;
+  oneDay = 86400000,
+  week = 7 * oneDay;
 
  
  function upperFirst(str) {
   return str.charAt(0).toUpperCase() + str.substr(1);
 }
+
+
+Date.prototype.getWeek = function() {
+    const dt = new Date(this.getFullYear(),0,1);
+    return Math.ceil((((this - dt) / 86400000) + dt.getDay()+1)/7);
+};
 
 
 function Calendar({date}) {
@@ -47,9 +54,14 @@ function Calendar({date}) {
     let arrWeek = [],
       isForward = weekDay === 1 ? false : true,
       length = ((weekDay > 0 && weekDay < 6) || 
-        (weekDay === 6 && lastDayTM === 0)) ? 5 : 6;
+        (weekDay === 6 && lastDayTM === 0)) ? 5 : 6,
+      dateId = (isForward ? getStartDateLM() : new Date(year, month).getTime()) - week;
     for (let i = 0; i < length; i++) {
-      arrWeek.push(<tr>{addDay(isForward)}</tr>);
+      arrWeek.push(
+        <tr key={'week_' + new Date(dateId += week).getWeek()}>
+          {addDay(isForward)}
+        </tr>
+      );
     }
     return arrWeek;
   }
@@ -67,14 +79,14 @@ function Calendar({date}) {
   
   
   function addDay(isForward) {
-    let arrDay = [];  
+    let arrDay = [];
     for (let i = 0; i < 7; i++) {
       let day = isForward === true ? dateLM : dateTM;
       arrDay.push(
         <td key={i} className={getDayType(day, date)}>
           {new Date(day).getDate()}
         </td>
-      );  
+      ); 
       if (isForward) {
         dateLM += oneDay;
       } else {
