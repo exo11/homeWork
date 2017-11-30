@@ -1,22 +1,9 @@
 .trophies {
   display: flex;
   flex-direction: column-reverse;
-  align-items: center;
-}
-
-.trophy {
-  width: 32%;
-  margin-bottom: 30px;
-}
-
-/*
-.trophies {
-  display: flex;
-  flex-direction: column-reverse;
 }
 
 .trophy {
   width: 32%;
   margin: 0 34% 30px;
 }
-*/
