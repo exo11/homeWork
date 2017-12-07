@@ -43,7 +43,7 @@ body {
   color: #b5bce3;  
 }
 
-@media (min-width: 481px){
+@media (min-width: 481px) {
 
   .section__body {
     display: flex;
@@ -124,3 +124,4 @@ body {
   top: 5px;
   left: 5px;  
 }
+
