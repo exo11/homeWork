@@ -1,0 +1,57 @@
+@media (min-width: 480px) {
+  
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 640px) {
+  
+  .card {
+    width: 50%;
+  }
+
+  .card:nth-child(3n+3) {
+    width: 100%;
+  }
+}
+
+
+
+@media (min-width: 641px) and (max-width: 960px) {
+  
+  .card {
+    width: 50%;
+  }
+
+  .card:nth-child(5n+3), .card:nth-child(5n+4), .card:nth-child(5n+5) {
+    width: 33.333%;
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1280px) {
+  
+  .card {
+    width: 25%;
+  }
+
+  .card:nth-child(-6n+11), .card:nth-child(-6n+12) {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1281px) {
+  
+  .card {
+    width: 20%;
+  }
+
+  .card:nth-child(8n+6), .card:nth-child(8n+7), .card:nth-child(8n+8) {
+    width: 33.333%;
+  }
+
+  .card:nth-child(n+17) {
+    width: 25%;
+  }
+}
