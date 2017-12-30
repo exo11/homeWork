@@ -2,13 +2,13 @@
   
   .page {
 	  display: flex;
-	  flex-direction: row-reverse;
-  }
+	}
   
   .aside {
     width: 320px;
     margin-right: 40px;
     flex-shrink: 0;
+    order: -1;
   }
 
   .content {
